@@ -13,6 +13,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={render.Home}/>
           <Route exact path="/day" component={render.Day}/>
+          <Route exact path="/register" component={render.Register}/>
+          <Route exact path="/login" component={render.Login}/>
         </Switch>
       </div>
     </Router>

@@ -26,7 +26,10 @@ export const Navbar = () => {
                     </ul>
                     {false 
                     ? <h1>logeado</h1>  
-                    : <button className="btn btn-outline-primary my-2 my-sm-0" type="submit">Login</button>
+                    : <div>
+                        <Link to='/login' className="btn btn-outline-primary my-2 my-sm-0">Login</Link>
+                        <Link to='/register' className="btn btn-outline-danger my-2 my-sm-0">Register</Link>
+                    </div>
                     }
                 </div>
             </nav>
