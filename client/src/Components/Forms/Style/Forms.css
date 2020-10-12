@@ -1,0 +1,28 @@
+.form {
+    margin: 3% 20%;
+    padding: 20px;
+    border: 5px blue solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputs input {
+    margin-bottom: 20px;
+    border: 1px black solid;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.inputs input:hover {
+    background-color: rgb(216, 216, 216);
+}

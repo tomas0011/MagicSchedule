@@ -72,7 +72,7 @@ server.use(
 //-------------------------------//
 //------------CORS---------------//
 //-------------------------------//
-const whiteList = ['http://localhost:19006', 'https://bankappme.tk/', 'https://www.bankappme.tk/']; 
+const whiteList = ['http://localhost:3000']; 
 
 server.use(cors({
     credentials: true,
