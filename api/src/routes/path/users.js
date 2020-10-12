@@ -5,10 +5,16 @@ const { User } = require('../../db');
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-server.get('/me', async (req, res) => {
-    res.send('me')
+//--------------------------------------
+//             MI PERFIL               |
+//--------------------------------------
+server.get('/me', isAuth, async (req, res) => {
+    res.send(req.user)
 })
 
+//--------------------------------------
+//         REGISTRAR USUARIO           |
+//--------------------------------------
 server.post('/register', async (req, res) => {
     const { name, surname, username, password } = req.body;
 
@@ -40,20 +46,20 @@ server.post('/register', async (req, res) => {
 //           RUTA LOGIN               |
 //-------------------------------------
 server.post('/login', passport.authenticate("local"), (req, res) => {
-    res.send(req.user);
+    res.send(String(req.user.id));
 })
 
 //-------------------------------------
 //           RUTA LOGOUT              |
 //-------------------------------------
-server.post("/logout", (req, res) => {
+server.post("/logout", isAuth, (req, res) => {
     req.session.destroy();
     req.logOut()
     res.send("se deslogueo");
 });
 
 //-------------------------------------
-//          RUTA ALLUSERS             |
+//          RUTA ALL USERS            |
 //-------------------------------------
 server.get('/all', async (req, res) => {
     const users = await User.findAll();

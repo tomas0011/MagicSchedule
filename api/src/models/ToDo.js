@@ -8,8 +8,12 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         description: {
-            type: S.STRING,
-            allowNull: false,
+            type: S.STRING
         },
+        status: {
+            type: S.ENUM,
+            values: ['pending', 'complete', 'canceled'],
+            defaultValue: 'pending'
+        }
     });
 };
