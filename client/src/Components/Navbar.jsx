@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
-export const Navbar = () => {
-    
+export const Navbar = ({user}) => {
 
     return (
         <div>
@@ -24,8 +23,8 @@ export const Navbar = () => {
                             <Link className="nav-link" to='/Month'>Month</Link>
                         </li>
                     </ul>
-                    {false 
-                    ? <h1>logeado</h1>  
+                    {user.name 
+                    ? <h4 className='text-light'>{`${user.name} ${user.surname}`}</h4>  
                     : <div>
                         <Link to='/login' className="btn btn-outline-primary my-2 my-sm-0">Login</Link>
                         <Link to='/register' className="btn btn-outline-danger my-2 my-sm-0">Register</Link>

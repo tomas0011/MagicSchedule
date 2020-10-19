@@ -12,36 +12,35 @@ const instance = axios.create({
 //            LOGIN                 |
 //-----------------------------------
 export const userLogin = (login) => {
-    return function(dispatch) {
+    return async function(dispatch) {
         try {
-            instance.post('/user/login', login)
-                .then((login) => dispatch({
-                    type: constants.LOGIN_USER, payload: login.data
-                }))
-        } catch(err) { console.log(err) }
+            const log = await instance.post('/user/login', login)
+            dispatch({
+                type: constants.LOGIN_USER, payload: log.data
+            })
+        } catch(err) { throw Error() }
     }
 }
 
-export const getMe = async () => {
-    try {
-        const user = await instance.get('/user/me')
-        console.log(user)
-        return user
-    } catch(err) { console.log(err) }
+export const getMe = () => {
+    return async function(dispatch){
+        try {
+            const user = await instance.get('/user/me')
+            dispatch({
+                type: constants.ME, payload: user.data
+            })
+        } catch(err) { throw Error(err) }
+    }
 }
 
 //-----------------------------------
 //           REGISTER               |
 //-----------------------------------
-export const userRegister = (register) => {
-    return async function (dispatch) {
-        try {
-            const a = await instance.post('/user/register', register)
-            console.log(a.data)
-            await userLogin(register.data)
-            const me = await getMe()
-            console.log(me)
-        } catch(err) { console.log(err) }
-    }
+export const userRegister = async (register) => {
+    try {
+        const a = await instance.post('/user/register', register)
+        console.log('DATA')
+        console.log(a.data)
+    } catch(err) { throw Error(err) }
 }
 

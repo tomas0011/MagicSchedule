@@ -18,15 +18,15 @@ server.get('/me', isAuth, async (req, res) => {
 server.post('/register', async (req, res) => {
     const { name, surname, username, password } = req.body;
 
-    if(!name) return res.send('debes enviarme un nombre')
-    if(!surname) return res.send('debes enviarme un apellido')
-    if(!username) return res.send('debes enviarme un usuario')
-    if(!password) return res.send('debes enviarme una contraseña')
+    if(!name) return res.status(400).send('debes enviarme un nombre')
+    if(!surname) return res.status(400).send('debes enviarme un apellido')
+    if(!username) return res.status(400).send('debes enviarme un usuario')
+    if(!password) return res.status(400).send('debes enviarme una contraseña')
 
     const user = await User.findOne({
         where: { username }
     });
-    if(user) return res.send('el usuario ya existe')
+    if(user) return res.status(400).send('el usuario ya existe')
     
     const salt = bcrypt.genSaltSync(numGen(1));
     const hash = bcrypt.hashSync(password, salt);

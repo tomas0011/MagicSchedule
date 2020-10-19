@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as action from '../../redux/actions'
 import './Style/Forms.css'
 
@@ -7,11 +7,21 @@ export const Login = () => {
     const dispatch = useDispatch()
 
     const [form, setForm] = useState({
-        email: '',
+        username: '',
         password: ''
     })
 
+    const [error, setError] = useState('');
+
+    const validate = () => {
+        const {username, password} = form;
+        
+        if(!username || !password ) setError('all inputs are obligatory')
+        else setError('username or password are incorects')
+    }
+
     const handleOnChange = (e) => {
+        setError('')
         setForm({
             ...form,
             [e.target.name]: e.target.value
@@ -22,7 +32,9 @@ export const Login = () => {
         e.preventDefault()
         try {
             await dispatch(action.userLogin(form))
-        } catch(err) { console.log(err) }
+            await dispatch(action.getMe())
+            alert('andando!')
+        } catch(err) { validate() }
     }
 
     return (
@@ -32,6 +44,8 @@ export const Login = () => {
                 <div className='inputs'>
                     <input type="text" name='username' placeholder='Username' value={form.username} onChange={handleOnChange}/>
                     <input type="text" name='password' placeholder='Password' value={form.password} onChange={handleOnChange}/>
+
+                    <p align='center' className='text-danger'> { error } </p>
 
                     <button className="btn btn-outline-primary my-2 my-sm-0" onClick={handleOnSubmit}>Login</button>
                 </div>
