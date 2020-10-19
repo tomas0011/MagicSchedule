@@ -7,9 +7,12 @@ import './styles/Home.css'
 
 export const Home = () => {
     const HoraryDay = useSelector((state)=>state.HoraryDay)
+    const toDo = useSelector(state=>state.toDo)
     const events = useSelector((state)=>state.events)
 
-    console.log('home')
+    const addToDo = () => {
+        console.log('add')
+    }
 
     return (
         <div className='home'>
@@ -23,7 +26,18 @@ export const Home = () => {
                 <Clock/>
             </div>
             <div className='toDoList'>
-                <h1>hola</h1>
+                <button onClick={addToDo}>+</button>
+                {toDo.length
+                    ?   <div>
+                            {toDo.map((d)=> {
+                                console.log(d)
+                            return <div>
+                                <h4>{d.name}</h4>
+                                <p>{d.description}</p>
+                            </div>} )}
+                        </div>
+                    :   <h4>not task yet</h4> 
+                }
             </div>
         </div>
     )
